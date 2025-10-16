@@ -1,0 +1,9 @@
+CompileFlags:
+  Remove: [-mword-relocations]
+  Add:
+    - -isystem
+    - /opt/devkitpro/libctru/include
+    - -isystem
+    - /opt/devkitpro/devkitARM/arm-none-eabi/include
+    - -isystem
+    - /opt/devkitpro/devkitARM/arm-none-eabi/include/c++/15.1.0
