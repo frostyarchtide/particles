@@ -9,7 +9,17 @@ struct Vec2 {
         y(y)
     {}
 
-    Vec2 operator /(float scalar) const;
+    Vec2 operator+(Vec2 other) const;
+    void operator+=(Vec2 other);
+    Vec2 operator-() const;
+    Vec2 operator-(Vec2 other) const;
+    void operator-=(Vec2 other);
+    Vec2 operator*(float scalar) const;
+    Vec2 operator/(float scalar) const;
+    void operator/=(float scalar);
+    
+    float length() const;
+    Vec2 normalized() const;
 };
 
 struct Vec4 {

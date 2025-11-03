@@ -20,15 +20,21 @@ struct Command {
     virtual void execute() = 0;
 };
 
+struct ResetView : Command {
+    void execute() override;
+};
+
 struct View : Command {
     Vec2 offset;
+    float scale;
 
-    View(Vec2 offset = Vec2())
-        : offset(offset)
+    View(Vec2 offset = Vec2(), float scale = 1.0f)
+        : offset(offset),
+        scale(scale)
     {}
 
-    View(float x, float y = 0.0f)
-        : View(Vec2(x, y))
+    View(float x, float y = 0.0f, float scale = 1.0f)
+        : View(Vec2(x, y), scale)
     {}
 
     void execute() override;
@@ -39,13 +45,13 @@ struct Circle : Command {
     float radius;
     Vec4 color;
 
-    Circle(Vec2 position = Vec2(), float radius = 50.0f, Vec4 color = Vec4(1.0f))
+    Circle(Vec2 position = Vec2(), float radius = 0.5f, Vec4 color = Vec4(1.0f))
         : position(position),
         radius(radius),
         color(color)
     {}
 
-    Circle(float x, float y = 0.0f, float radius = 50.0f, Vec4 color = Vec4(1.0f))
+    Circle(float x, float y = 0.0f, float radius = 0.5f, Vec4 color = Vec4(1.0f))
         : Circle(Vec2(x, y), radius, color)
     {}
 
@@ -100,8 +106,11 @@ public:
         }
     }
 
-    Screen& get_top();
-    Screen& get_bottom();
+    template <typename... Ts>
+    void submit(Ts&&... commands) {
+        submit(Display::TOP, commands...);
+        submit(Display::BOTTOM, commands...);
+    }
 
 private:
     std::unique_ptr<Screen> top;

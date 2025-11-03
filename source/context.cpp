@@ -1,9 +1,13 @@
 #include "context.hpp"
 #include "defines.hpp"
 
-void View::execute() {
+void ResetView::execute() {
     C2D_ViewReset();
-    C2D_ViewTranslate(offset.x, offset.y);
+}
+
+void View::execute() {
+    C2D_ViewTranslate(-offset.x, -offset.y);
+    C2D_ViewScale(scale, scale);
 };
 
 void Circle::execute() {
@@ -83,12 +87,4 @@ void Context::execute() {
         top->execute();
         bottom->execute();
     C3D_FrameEnd(0);
-}
-
-Screen& Context::get_top() {
-    return *top.get();
-}
-
-Screen& Context::get_bottom() {
-    return *bottom.get();
 }

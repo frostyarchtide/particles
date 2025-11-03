@@ -13,6 +13,7 @@ add_executable(${PROJECT_NAME}
   source/context.cpp
   source/main.cpp
   source/math.cpp
+  source/universe.cpp
 )
 
 target_compile_options(${PROJECT_NAME} PRIVATE
